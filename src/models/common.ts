@@ -4,7 +4,7 @@ export interface PaginationParams {
   _total: number;
 }
 
-export interface ListRespons<T> {
+export interface ListRespones<T> {
   data: T[];
   pagination: PaginationParams;
 }

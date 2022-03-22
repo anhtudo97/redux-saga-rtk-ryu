@@ -1,8 +1,8 @@
-import { ListRespons, City } from 'models';
+import { ListRespones, City } from 'models';
 import axiosClient from './axiosClient';
 
 const cityApi = {
-  getAll(): Promise<ListRespons<City>> {
+  getAll(): Promise<ListRespones<City>> {
     const url = '/cities';
     return axiosClient.get(url, {
       params: {
