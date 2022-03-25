@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useAppDispatch } from 'app/hooks';
+import { authActions } from '../authSlice';
 
 type Props = {};
 
@@ -30,13 +32,23 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function LoginPage({}: Props) {
+  const dispatch = useAppDispatch();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    const username = data.get('username')?.toString();
+    const password = data.get('password')?.toString();
+
+    if (username && password) {
+      dispatch(
+        authActions.login({
+          username,
+          password,
+        })
+      );
+    }
   };
 
   return (
@@ -62,10 +74,9 @@ export default function LoginPage({}: Props) {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Username"
+              name="username"
               autoFocus
             />
             <TextField
