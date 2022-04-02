@@ -9,10 +9,11 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
+import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useAppDispatch } from 'app/hooks';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { authActions } from '../authSlice';
 
 type Props = {};
@@ -33,6 +34,8 @@ const theme = createTheme();
 
 export default function LoginPage({}: Props) {
   const dispatch = useAppDispatch();
+
+  const isLogging = useAppSelector((state) => state.auth.logging);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -94,7 +97,7 @@ export default function LoginPage({}: Props) {
               label="Remember me"
             />
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-              Sign In
+              {isLogging && <CircularProgress size={20} color="secondary" />} &nbsp; Sign In
             </Button>
             <Grid container>
               <Grid item xs>

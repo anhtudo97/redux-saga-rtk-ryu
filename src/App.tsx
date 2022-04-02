@@ -7,6 +7,7 @@ import LoginPage from 'features/auth/pages/LoginPage';
 import { AdminLayout } from 'components/Layout';
 import { NotFound, PrivateRoute } from 'components/Common';
 import { Route, Switch } from 'react-router-dom';
+import { LoginRoute } from 'components/Common/LoginRoute';
 
 function App() {
   useEffect(() => {
@@ -16,9 +17,9 @@ function App() {
   return (
     <div className="App">
       <Switch>
-        <Route path="/login">
+        <LoginRoute path="/login">
           <LoginPage />
-        </Route>
+        </LoginRoute>
         <PrivateRoute path="/admin">
           <AdminLayout />
         </PrivateRoute>

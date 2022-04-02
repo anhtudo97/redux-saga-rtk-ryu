@@ -14,6 +14,9 @@ function* handleLogin(payload: LoginPayload) {
         name: 'Tuanh',
       })
     );
+
+    // redirect to admin page
+    yield put(push('/admin'));
   } catch (error) {
     yield put(authActions.loginFailed(error.message));
   }
