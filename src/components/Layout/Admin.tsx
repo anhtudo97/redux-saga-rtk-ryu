@@ -2,8 +2,8 @@ import { makeStyles } from '@mui/styles';
 import { createTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import { Header, Sidebar } from 'components/Common';
-// import Dashboard from 'features/dashboard';
-// import StudentFeature from 'features/student';
+import Dashboard from 'features/dashboard';
+import Student from 'features/student';
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
@@ -49,9 +49,13 @@ export function AdminLayout() {
 
       <Box className={classes.main}>
         <Switch>
-          {/* <Route path="/admin/dashboard"><Dashboard /></Route> */}
+          <Route path="/admin/dashboard">
+            <Dashboard />
+          </Route>
 
-          <Route path="/admin/students">{/* <StudentFeature /> */}</Route>
+          <Route path="/admin/students">
+            <Student />
+          </Route>
         </Switch>
       </Box>
     </Box>
