@@ -1,6 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { push } from 'connected-react-router';
-import { take, fork, call, put, delay } from 'redux-saga/effects';
+import { take, fork, call, put, delay, takeLatest } from 'redux-saga/effects';
 import { LoginPayload, authActions } from './authSlice';
 
 function* handleLogin(payload: LoginPayload) {
@@ -37,11 +37,11 @@ function* watchLoginFlow() {
     const isLoggedIn = Boolean(localStorage.getItem('access_token'));
 
     if (!isLoggedIn) {
-      const action: PayloadAction<LoginPayload> = yield take(authActions.login.type);
+      const action: PayloadAction<LoginPayload> = yield takeLatest(authActions.login.type);
       yield fork(handleLogin, action.payload);
     }
 
-    yield take(authActions.logout.type);
+    yield takeLatest(authActions.logout.type);
     yield call(handleLogout);
   }
 }
