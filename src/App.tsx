@@ -23,6 +23,9 @@ function App() {
         <PrivateRoute path="/admin">
           <AdminLayout />
         </PrivateRoute>
+        <PrivateRoute path="/">
+          <AdminLayout />
+        </PrivateRoute>
         <Route>
           <NotFound />
         </Route>

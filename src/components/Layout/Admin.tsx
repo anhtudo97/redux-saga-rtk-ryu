@@ -2,12 +2,14 @@ import { makeStyles } from '@mui/styles';
 import { createTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import { Header, Sidebar } from 'components/Common';
-import Dashboard from 'features/dashboard';
+import CircularProgress from '@mui/material/CircularProgress';
 import Student from 'features/student';
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 const theme = createTheme();
+
+const Dashboard = React.lazy(() => import('features/dashboard'));
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -50,7 +52,9 @@ export function AdminLayout() {
       <Box className={classes.main}>
         <Switch>
           <Route path="/admin/dashboard">
-            <Dashboard />
+            <React.Suspense fallback={<CircularProgress />}>
+              <Dashboard />
+            </React.Suspense>
           </Route>
 
           <Route path="/admin/students">

@@ -16,15 +16,13 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { authActions } from '../authSlice';
 
-type Props = {};
-
 function Copyright(props: any) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
         Your Website
-      </Link>{' '}
+      </Link>
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -32,7 +30,7 @@ function Copyright(props: any) {
 }
 const theme = createTheme();
 
-export default function LoginPage({}: Props) {
+export default function LoginPage() {
   const dispatch = useAppDispatch();
 
   const isLogging = useAppSelector((state) => state.auth.logging);

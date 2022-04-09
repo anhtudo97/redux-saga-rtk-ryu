@@ -1,10 +1,11 @@
-import { Student } from './../../models/student';
-import { ListRespones } from './../../models/common';
-import { takeLatest } from 'redux-saga/effects';
-import { dashboardActions } from './dashboardSlice';
+import cityApi from 'api/cityApi';
+import studentApi from 'api/studentApi';
+import { City, ListResponses, Student } from 'models';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { dashboardActions, RankingByCity } from './dashboardSlice';
 
 function* fetchStatistics() {
-  const responseList: Array<ListRespones<Student>> = yield all([
+  const responseList: Array<ListResponses<Student>> = yield all([
     call(studentApi.getAll, { _page: 1, _limit: 1, gender: 'male' }),
     call(studentApi.getAll, { _page: 1, _limit: 1, gender: 'female' }),
     call(studentApi.getAll, { _page: 1, _limit: 1, mark_gte: 8 }),
@@ -19,7 +20,7 @@ function* fetchStatistics() {
 }
 
 function* fetchHighestStudentList() {
-  const { data }: ListResponse<Student> = yield call(studentApi.getAll, {
+  const { data }: ListResponses<Student> = yield call(studentApi.getAll, {
     _page: 1,
     _limit: 5,
     _sort: 'mark',
@@ -30,7 +31,7 @@ function* fetchHighestStudentList() {
 }
 
 function* fetchLowestStudentList() {
-  const { data }: ListResponse<Student> = yield call(studentApi.getAll, {
+  const { data }: ListResponses<Student> = yield call(studentApi.getAll, {
     _page: 1,
     _limit: 5,
     _sort: 'mark',
@@ -42,10 +43,10 @@ function* fetchLowestStudentList() {
 
 function* fetchRankingByCityList() {
   // Fetch city list
-  const { data: cityList }: ListResponse<City> = yield call(cityApi.getAll);
+  const { data: cityList }: ListResponses<City> = yield call(cityApi.getAll);
 
   // Fetch ranking per city
-  const callList = cityList.map((x) =>
+  const callList = cityList.map((x: City) =>
     call(studentApi.getAll, {
       _page: 1,
       _limit: 5,
@@ -54,7 +55,7 @@ function* fetchRankingByCityList() {
       city: x.code,
     })
   );
-  const responseList: Array<ListResponse<Student>> = yield all(callList);
+  const responseList: Array<ListResponses<Student>> = yield all(callList);
   const rankingByCityList: Array<RankingByCity> = responseList.map((x, idx) => ({
     cityId: cityList[idx].code,
     cityName: cityList[idx].name,

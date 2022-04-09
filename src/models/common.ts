@@ -1,10 +1,10 @@
 export interface PaginationParams {
   _limit: number;
   _page: number;
-  _total: number;
+  _totalRows: number;
 }
 
-export interface ListRespones<T> {
+export interface ListResponses<T> {
   data: T[];
   pagination: PaginationParams;
 }
