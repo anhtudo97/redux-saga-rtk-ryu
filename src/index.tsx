@@ -12,9 +12,9 @@ import { history } from 'utils/history';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ConnectedRouter history={history}>
+      <BrowserRouter>
         <App />
-      </ConnectedRouter>
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
