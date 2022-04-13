@@ -15,7 +15,7 @@ export interface StudentFormProps {
   onSubmit?: (formValues: Student) => void;
 }
 
-const schema = yup.object().shape({
+const schema = yup.object({
   name: yup
     .string()
     .required('Please enter name.')
@@ -43,7 +43,7 @@ const schema = yup.object().shape({
     .string()
     .oneOf(['male', 'female'], 'Please select either male or female.')
     .required('Please select gender.'),
-  city: yup.string().required('Please select city.'),
+  // city: yup.string().required('Please select city.'),
 });
 
 export default function StudentForm({ initialValues, onSubmit }: StudentFormProps) {
@@ -70,10 +70,6 @@ export default function StudentForm({ initialValues, onSubmit }: StudentFormProp
     }
   };
 
-  // const test = () => {
-  //   console.log('tuanh');
-  // };
-
   return (
     <Box maxWidth={400}>
       <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -99,11 +95,10 @@ export default function StudentForm({ initialValues, onSubmit }: StudentFormProp
         {error && <Alert severity="error">{error}</Alert>}
 
         <Box mt={3}>
-          {/* <Button type="submit" variant="contained" color="primary" disabled={isSubmitting}>
+          <Button type="submit" variant="contained" color="primary" disabled={isSubmitting}>
             {isSubmitting && <CircularProgress size={16} color="primary" />}
             &nbsp;Save
-          </Button> */}
-           <input type="submit" />
+          </Button>
         </Box>
       </form>
     </Box>
